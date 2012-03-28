@@ -113,6 +113,22 @@
 <div class="row">
   <div class="span14">
     <h1>
+      <a href="2012/3/28/hosting-with-github-pages/" rel="bookmark">Hosting with GitHub Pages</a>
+      <br />
+      <small>Mar 28, 2012</small>
+    </h1>
+    <p>It occurred to me that having transitioned my blog to be a generated static site, I was paying Rackspace ~$11 to simply host static files. (And for me to have the pleasure of managing a server in the process!) This struck me as stupid, for what are probably pretty obvious reasons. So, I've made another change to my blog hosting. I'm now using <a href="http://pages.github.com/">GitHub Pages</a>. Thanks to <a href="https://dnsimple.com/">DNSimple</a> it was drop-dead easy to change my DNS settings appropriately as well.</p> <p>I've still got one more site hosted on my Rackspace CloudServer that I need to figure out what to do with. It's basically just an image server that I'm holding onto for historical reasons (there are still various sites out there that are linking to it), so I may just throw that on GitHub pages as well (it's less than 40 MB of images, so I don't feel too bad about it), though I would much rather have a solution where I could point the domain name at my <a href="http://dropbox.com">Dropbox</a> public folder for that sort of thing. Anyone know of a way to do that? I can't just CNAME the domain to dl.dropbox.com, because that would break the existing links, instead I need it to rewrite the URL to include the path to my public folder. It would be super easy to do with Nginx, but that would require me to run and manage a server, and the whole point of all this is to not have to do such things any more. Hopefully I'll be able to come up with a solution to that...</p> <p>For all my non-static sites (including whatever personal and side-projects I might work on) I've been really, really happy with <a href="http://www.heroku.com/">Heroku</a>. If you haven't used the service I highly recommend checking them out. Hopefully I'll find the time to blog about it in more depth in the future. Suffice it to say, I will be attempting to use Heroku for pretty much every project I work on. Undoubtedly there will be some cases where it becomes necessary to manage (virtual) servers on RackSpace or EC2, but I think that's going to quickly become a small minority of cases.</p> <p>Anyway, the serving landscape has been changing with remarkable speed lately, and I'm sure it will only continue to do so. The net result is that my life is much easier, and my hosting costs much lower. Vive la (hosting) révolution!</p>
+    <div class="entry_meta">
+      <a href="2012/3/28/hosting-with-github-pages/#disqus_thread">View Comments</a>
+      
+      
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span14">
+    <h1>
       <a href="2012/2/26/now-in-syndication/" rel="bookmark">Now in syndication!</a>
       <br />
       <small>Feb 26, 2012</small>

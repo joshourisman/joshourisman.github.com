@@ -5,7 +5,15 @@
         <link>http://joshourisman.com</link>
         <description>A blog by Josh Ourisman.</description>
         <language>en-us</language>
-        <lastBuildDate>Sun, 26 Feb 2012 12:44:22 -0500</lastBuildDate>
+        <lastBuildDate>Wed, 28 Mar 2012 07:10:15 -0500</lastBuildDate>
+        
+        <item>
+            <title>Hosting with GitHub Pages</title>
+            <link>2012/3/28/hosting-with-github-pages/</link>
+            <description><p>It occurred to me that having transitioned my blog to be a generated static site, I was paying Rackspace ~$11 to simply host static files. (And for me to have the pleasure of managing a server in the process!) This struck me as stupid, for what are probably pretty obvious reasons. So, I've made another change to my blog hosting. I'm now using <a href="http://pages.github.com/">GitHub Pages</a>. Thanks to <a href="https://dnsimple.com/">DNSimple</a> it was drop-dead easy to change my DNS settings appropriately as well.</p> <p>I've still got one more site hosted on my Rackspace CloudServer that I need to figure out what to do with. It's basically just an image server that I'm holding onto for historical reasons (there are still various sites out there that are linking to it), so I may just throw that on GitHub pages as well (it's less than 40 MB of images, so I don't feel too bad about it), though I would much rather have a solution where I could point the domain name at my <a href="http://dropbox.com">Dropbox</a> public folder for that sort of thing. Anyone know of a way to do that? I can't just CNAME the domain to dl.dropbox.com, because that would break the existing links, instead I need it to rewrite the URL to include the path to my public folder. It would be super easy to do with Nginx, but that would require me to run and manage a server, and the whole point of all this is to not have to do such things any more. Hopefully I'll be able to come up with a solution to that...</p> <p>For all my non-static sites (including whatever personal and side-projects I might work on) I've been really, really happy with <a href="http://www.heroku.com/">Heroku</a>. If you haven't used the service I highly recommend checking them out. Hopefully I'll find the time to blog about it in more depth in the future. Suffice it to say, I will be attempting to use Heroku for pretty much every project I work on. Undoubtedly there will be some cases where it becomes necessary to manage (virtual) servers on RackSpace or EC2, but I think that's going to quickly become a small minority of cases.</p> <p>Anyway, the serving landscape has been changing with remarkable speed lately, and I'm sure it will only continue to do so. The net result is that my life is much easier, and my hosting costs much lower. Vive la (hosting) révolution!</p></description>
+            <pubDate>Wed, 28 Mar 2012 06:06:10 -0500</pubDate>
+            <guid>2012/3/28/hosting-with-github-pages/ </guid>
+        </item>
         
         <item>
             <title>Now in syndication!</title>
@@ -144,14 +152,6 @@ As you can see, this is also using another new feature in the 1.1.x admin: rever
 The result of all this was a seamless integration of my custom 'view, but don't edit all' view into the Django admin.</description>
             <pubDate>Thu, 15 Oct 2009 10:30:27 -0500</pubDate>
             <guid>2009/10/15/django-admin-awesomeness/ </guid>
-        </item>
-        
-        <item>
-            <title>Sorry about the downtime</title>
-            <link>2009/10/14/sorry-about-downtime/</link>
-            <description>I just happened to check my Google analytics today and saw that my  hits had dropped essentially to zero since October 8th. Turns out that my  wsgi file was a little screwed up after my initial attempts to migrate my  blog to django-mingus. I have, obviously, fixed it, though I still want to  move the blog to mingus and will hopefully get the chance to actually do  that soon. Until then, however, at least my blog is up!</description>
-            <pubDate>Wed, 14 Oct 2009 09:47:27 -0500</pubDate>
-            <guid>2009/10/14/sorry-about-downtime/ </guid>
         </item>
         
     </channel>

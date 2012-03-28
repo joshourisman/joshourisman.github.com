@@ -113,6 +113,22 @@
 <div class="row">
   <div class="span14">
     <h1>
+      <a href="2012/3/28/hosting-with-github-pages/" rel="bookmark">Hosting with GitHub Pages</a>
+      <br />
+      <small>Mar 28, 2012</small>
+    </h1>
+    <p>It occurred to me that having transitioned my blog to be a generated static site, I was paying Rackspace ~$11 to simply host static files. (And for me to have the pleasure of managing a server in the process!) This struck me as stupid, for what are probably pretty obvious reasons. So, I've made another change to my blog hosting. I'm now using <a href="http://pages.github.com/">GitHub Pages</a>. Thanks to <a href="https://dnsimple.com/">DNSimple</a> it was drop-dead easy to change my DNS settings appropriately as well.</p> <p>I've still got one more site hosted on my Rackspace CloudServer that I need to figure out what to do with. It's basically just an image server that I'm holding onto for historical reasons (there are still various sites out there that are linking to it), so I may just throw that on GitHub pages as well (it's less than 40 MB of images, so I don't feel too bad about it), though I would much rather have a solution where I could point the domain name at my <a href="http://dropbox.com">Dropbox</a> public folder for that sort of thing. Anyone know of a way to do that? I can't just CNAME the domain to dl.dropbox.com, because that would break the existing links, instead I need it to rewrite the URL to include the path to my public folder. It would be super easy to do with Nginx, but that would require me to run and manage a server, and the whole point of all this is to not have to do such things any more. Hopefully I'll be able to come up with a solution to that...</p> <p>For all my non-static sites (including whatever personal and side-projects I might work on) I've been really, really happy with <a href="http://www.heroku.com/">Heroku</a>. If you haven't used the service I highly recommend checking them out. Hopefully I'll find the time to blog about it in more depth in the future. Suffice it to say, I will be attempting to use Heroku for pretty much every project I work on. Undoubtedly there will be some cases where it becomes necessary to manage (virtual) servers on RackSpace or EC2, but I think that's going to quickly become a small minority of cases.</p> <p>Anyway, the serving landscape has been changing with remarkable speed lately, and I'm sure it will only continue to do so. The net result is that my life is much easier, and my hosting costs much lower. Vive la (hosting) révolution!</p>
+    <div class="entry_meta">
+      <a href="2012/3/28/hosting-with-github-pages/#disqus_thread">View Comments</a>
+      
+      
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span14">
+    <h1>
       <a href="2012/2/26/now-in-syndication/" rel="bookmark">Now in syndication!</a>
       <br />
       <small>Feb 26, 2012</small>
@@ -182,30 +198,6 @@ I think this is actually pretty close and it probably won't take too long for me
 <p>Anyway, I'm definitely looking forward to some feedback on this project, as I suspect it could be quite useful to many people. Contributions are always welcome as well!</p>
     <div class="entry_meta">
       <a href="2010/3/26/adamanteus-versioned-database-backups/#disqus_thread">View Comments</a>
-      
-      
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span14">
-    <h1>
-      <a href="2010/3/26/more-massive-obamacare-loophole/" rel="bookmark">More on the massive ObamaCare Loophole</a>
-      <br />
-      <small>Mar 26, 2010</small>
-    </h1>
-    <p>Since <a href="http://joshourisman.com/2010/03/23/what-does-obamacare-actually-do/">my last post</a> I've seen quite a few other people writing about exactly the same issue with ObamaCare that I saw: it actually encourages people to <em>not</em> carry health insurance. The most recent is someone's whose blog I've been reading for a while and whose opinions I generally respect: <a href="http://blogs.law.harvard.edu/philg/">Philip Greenspun</a> an <a href="http://en.wikipedia.org/wiki/Electrical_Engineering_and_Computer_Science">EECS</a> professor at MIT. He actually did the math to reveal that a family in Massachusetts making $100,000 can expect to pay around $20,000 per year on insurance. The fine for not carrying insurance, however, would only be $2,000. And, of course, the insurance carriers would be forbidden from denying them of insurance if they showed up already sick and actually in need of health care.</p>
-
-<p>But there's more! <a href="http://econlog.econlib.org/authorbcaplan.html">Brian Caplan</a> at the <a href="http://www.econlib.org/">Library of Economics and Liberty</a> (which I don't actually know much about, but I would guess is biased in the libertarian direction from a cursory examination of the site) suggests another unexpected side-effect of ObamaCare will be that <a href="http://econlog.econlib.org/archives/2010/03/how_many_employ.html#">employers will stop offering insurance as a benefit</a>. Part of the reason it's currently so common for insurance to be an employment benefit is that the government has been encouraging this behavior since around WWII by not counting health insurance as taxable income. This, apparently, is going to change with ObamaCare.</p>
-
-<p>This, however, I think is actually a good thing. I mentioned in my last post that I had some ideas on a different sort of reform that I've posted about elsewhere in the past; below is an outline of some ideas that I put together a couple years ago (around the time that Massachusetts was debating the inspiration for ObamaCare):</p>
-
-<p><ul><li>Decouple health insurance from employment</li><ul><li>current system economically stupid</li><ul><li>encourages un-educated consumers</li><li>reduces consumer choice</li><li>reduces competition in the market</li></ul><li>current system unnecessarily restricts consumers</li><ul><li>people with health problems can't change jobs for fear of losing insurance</li><li>true cost of insurance is hidden from consumers</li></ul></ul><li>Make medical costs tax deductible</li><ul><li>all costs should be up to 100% tax deductible (maybe variable by income)</li><li>makes health care significantly more affordable</li><li>provides the same functional assistance as a single-payer system</li><li>doesn't encourage reliance on the system</li><li>doesn't require increased bureaucracy</li><li>encourages personal responsibility</li></ul><li>Provide low/no interest loads to cover medical costs</li><ul><li>interest rate based on need</li><li>removes problem of non-payment</li><li>allows even the uninsured to afford very expensive procedures</li><li>doesn't encourage reliance on the system</li><li>payments are tax deductible under point 2</li></ul><li>Loosen regulations on insurance industry</li><ul><li>regulations such as setting a maximum deductible hurt both sides</li><ul><li>consumers aren't allowed to decide for themselves what they need</li><li>insurers aren't allowed to innovate and find new solutions</li></ul><li>regulations reduce competition</li><ul><li>not <em>all</em> of them!</li><li>regulations provide a disincentive for new insurance companies to enter the market</li><li>the more insurance companies there are, the better for consumers</li></ul></ul></ul></p>
-
-<p>Obviously this is still rather rough, and some of the points are clearly designed to address things that have now changed. However I think this is a decent outline of changes that could be made to healthcare that would meet the goals of <em>both</em> sides of the public/private argument. I'm sure there's tons of discussion that could be had on just about every one of my points, so perhaps I'll take the time to break each one out into a separate blog post where I can go into more detail in the future. Also, I'll try and write some more about the code I've been working on as there's some good stuff involving <a href="http://www.mongodb.org/">MongoDB</a>, <a href="http://hmarr.com/2010/feb/04/introducing-mongoengine/">MongoEngine</a>, and&mdash;of course&mdash;<a href="http://www.djangoproject.com/">Django</a>.</p>
-    <div class="entry_meta">
-      <a href="2010/3/26/more-massive-obamacare-loophole/#disqus_thread">View Comments</a>
       
       
     </div>
