@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">Should have done this a long time ago</a>
+      <br />
+      <small>Dec 12, 2008</small>
+    </h1>
+    Really, this was a pretty major oversight on my part, but I just now finished added a 'status' field to each entry in my blog app. It's a pretty simple thing in and of itself, I just added a tiny bit of code to my Entry model:
+
+<code class="python">STATUS_CHOICES = (
+        ('dr', 'draft'),
+        ('ac', 'active'),
+        ('ar', 'archive'),
+    )
+
+status = models.CharField(choices=STATUS_CHOICES, max_length=2, default='dr')</code>
+
+And then a custom manager as well:
+<code class="python">class EntryManager(models.Manager):
+    def active(self):
+        return self.get_query_set().filter(status='ac')</code>
+
+Remembering, of course, to make sure that manager was actually accessible from the model (in this case by adding 'objects = EntryManager()' to my model class).
+
+Once I did that I was able to change the Entry.objects.all() in my view(s) to Entry.objects.active() and now I'm able to write a post and save it without actually publishing! As I said, something of a bonehead move that I didn't do this in the first place.
+
+Since I was messing around in my code anyway I decided to clean up the admin for my Entry model as well. Since I'm the only one who ever uses the admin for my blog, I hadn't bothered to before, but now I've got a little more info available to me when looking at my entries:
+
+<code class="python">class EntryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+    save_on_top = True
+    list_display = ['title', 'date', 'site_list', 'status',]
+    list_filter = ('sites', 'status',)</code>
+
+So my admin now looks something like this:
+<img src="http://images.nonhuman.net/blog_admin.png" style="width: 100%;" />
+
+A cool thing there is the 'site_list' column. By default, you can't use a ManyToManyField in the list_display for your model. But I've dealt with this before, and it's only 5 lines of code to make this work:
+<code class="python">def site_list(self):
+        if self.sites:
+            sites = [site.name for site in self.sites.all()]
+            string = ", ".join(sites)
+            return string</code>
+
+Good stuff!
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=django&sa=Search#gsc.tab=0&gsc.q=django&gsc.page=1" rel="tag">django</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=blog&sa=Search#gsc.tab=0&gsc.q=blog&gsc.page=1" rel="tag">blog</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=admin&sa=Search#gsc.tab=0&gsc.q=admin&gsc.page=1" rel="tag">admin</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=python&sa=Search#gsc.tab=0&gsc.q=python&gsc.page=1" rel="tag">python</a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

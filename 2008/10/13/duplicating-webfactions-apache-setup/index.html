@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">Duplicating WebFaction's Apache setup</a>
+      <br />
+      <small>Oct 13, 2008</small>
+    </h1>
+    I've been using <a href="http://www.webfaction.com/">WebFaction</a> for my hosting for a while now, and have been extremely pleased with them. In addition to the fantastic service I've received, I've been very impressed with the intelligent way they have their servers setup. They've clearly done a lot of work to make things as modular as possible which makes it insanely easy for me to run multiple sites with very different requirements seamlessly on the same server.
+
+Basically what they've done is segment out all of your different websites into 'applications'. Each application in represented as a directory in your ~/webapps/ directory, and is essentially a self-contained environment with it's own apache instance, and, in the case of a <a href="http://www.djangoproject.com">Django</a> app, it's own $PYTHONPATH. The end result is that even though all the websites are being stored and run from within my home directory, they're entirely modular, can have different, or different versions of the same, dependencies installed, and can be shut down and restarted independently of one another. On top of all this is a fantastically simple custom web-based control panel that I'm pretty sure is built with Django.
+
+I've been so impressed with how well this setup works, that I've decided to duplicate it on my home server for development purposes. Currently I do pretty much all my development work on my <a href="http://www.gentoo.org">Gentoo Linux</a> powered ThinkPad. To that end I've installed Apache, MySQL, PostgreSQL, SQLite, Python, PHP, &c. to allow me to mimic the live sites as closely as possible and to allow me to continue working when I don't have internet access (such as when I'm flying or visiting Jessi's family out beyond the reach of broadband). This works very well, but as I'm just using a basic Apache install, without any VirtualHosts, it's not nearly as flexible and means I can really only work on a single site at a time with some work necessary to switch back and forth between projects. Of course most of the time I just use Django's built-in development server when working with Django, but I do end up relying on Apache sometimes, and I'd like to set up my home server as a more complete development environment for both myself and some friends I can grant VPN access to. So to that end I've been looking into WebFaction's setup with the idea of re-implementing it myself.
+
+Turns out it's pretty simple. Simple enough that I almost feel like I should have thought of it myself. Basically, WebFaction's setup scripts create a new 'app' in your ~/webapps/ directory, and populate it, most importantly with a copy, owned by your user, of the Apache executable, some scripts to start, stop, and restart that executable, and an httpd.conf file that sets the (in the case of a Python-based app) $PYTHONPATH variable to include a ~/webapps/yourappname/lib/python2.5/ directory allowing each site to maintain it's own dependencies independently (you can also put things in your ~/lib/python2.5/ for global dependencies if you want). Oh, each application also gets it's own copies of the necessary Apache modules to the same effect. Each application's Apache instance(s) is set up to listen to a different (non-80) port. The end result of this is an extremely simple, extremely modular setup that works fantastically.
+
+Obviously I've left out a step here. If each Apache isntance is listening to a different, non-80, port, how does your traffic get to your actual site? This is the one part that I can't really just peek into the configuration files for, because it doesn't (as far as I can tell, which makes sense) live on the same server as my sites. I assume that what's happening is that WebFaction's name servers are simply pointing requests to (for example) joshourisman.com:80 at my.webfaction.server:portnumber. Again, a simple, yet elegant solution that allows for easy customization and expansion.
+
+I haven't yet tried to implement this setup myself (I first want to move my server from FreeBSD to Linux (which now that I'm using full-time again I'm just much more familiar with), but there's nothing about it that's particularly tricky. Really, the routing is probably going to be the hardest part, but I'm planning on replacing our rather lackluster TrendNet wireless router with a Linux box which will give me much greater control and (hopefully) better reliability.
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=django&sa=Search#gsc.tab=0&gsc.q=django&gsc.page=1" rel="tag">django</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=work&sa=Search#gsc.tab=0&gsc.q=work&gsc.page=1" rel="tag">work</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=webfaction&sa=Search#gsc.tab=0&gsc.q=webfaction&gsc.page=1" rel="tag">webfaction</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=dydxtech&sa=Search#gsc.tab=0&gsc.q=dydxtech&gsc.page=1" rel="tag">dydxtech</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=gentoo&sa=Search#gsc.tab=0&gsc.q=gentoo&gsc.page=1" rel="tag">gentoo</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=linux&sa=Search#gsc.tab=0&gsc.q=linux&gsc.page=1" rel="tag">linux</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=python&sa=Search#gsc.tab=0&gsc.q=python&gsc.page=1" rel="tag">python</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=apache&sa=Search#gsc.tab=0&gsc.q=apache&gsc.page=1" rel="tag">apache</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=mysql&sa=Search#gsc.tab=0&gsc.q=mysql&gsc.page=1" rel="tag">mysql</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=postgresql&sa=Search#gsc.tab=0&gsc.q=postgresql&gsc.page=1" rel="tag">postgresql</a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

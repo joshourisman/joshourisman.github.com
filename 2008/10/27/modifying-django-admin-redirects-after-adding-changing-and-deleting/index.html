@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">Modifying the Django Admin: redirects after adding, changing, and deleting</a>
+      <br />
+      <small>Oct 27, 2008</small>
+    </h1>
+    One of the <a href="http://www.djangoproject.com/">Django</a> projects that I've been working on for about a year and and will (fingers crossed) be going live in the very very very near future has involved a lot of modification to Django's <a href="http://docs.djangoproject.com/en/dev/ref/contrib/admin/#ref-contrib-admin">admin interface</a>. I plan on writing more about the many, many specific changes that I've made to the interface (without modifying the actual Django codebase, so that the changes can be easily applied by anyone without breaking updates), but to talk about them all at once would make far too long of a post. So I'll be taking them on one at a time.
+
+The change I want to talk about right now involves redirecting the user to the page I want them to be at after they've finished adding or editing an object rather than to that object's model's change_list. Normally, if you're editing an Entry object in the Blog app, when you hit save it will take you to /admin/blog/entry/, which is a list of all the Entry objects in the database. However there are some instances in which this isn't the behavior I want. Once such instance involves <a href="http://docs.djangoproject.com/en/dev/topics/db/models/#model-inheritance">model inheritance</a>. Say, for example, you have multiple types of Entries which you've accomodated through <a href="http://docs.djangoproject.com/en/dev/topics/db/models/#multi-table-inheritance">multi-table-inheritance</a>. Because the different sub-classes are different models, they all have their own change_lists in the Django admin. But I want to be able to view, edit, and create Entries of all types from one page.
+
+Fortunately, Django makes this fairly easy to accomplish. All that is necessary is to override the appropriate methods in the Entry ModelAdmin. That will end up looking something like this:
+
+<code class="python">class EntryAdmin(admin.ModelAdmin):
+    def change_view(self, request, object_id, extra_context=None):
+        result = super(EntryAdminAdmin, self).change_view(request, object_id, extra_context)
+
+        if not request.POST.has_key('_addanother') and not request.POST.has_key('_continue'):
+            result['Location'] = iri_to_uri("/admin/blog/entry/")
+        return result</code>
+
+The exact same modification should be made to add_view as well, and a nearly identical modification to delete_view though it doesn't need to deal with the _addanother and _continue cases. You can then use the EntryAdmin class for all of your varioud Entry sub-classes, or, if you need some other changes to the admin for different Entries sub-classes you can sub-class EntryAdmin for them. Now, whenever you hit the save button after editing any sort of Entry, it will always take you back to /admin/blog/entry/ rather than /admin/blog/linkentry/ or whatever your other subclasses are. If you want it to only take you back to /admin/blog/entry/ if you're coming from a particular page and otherwise take you to /admin/blog/linkentry/ all you need is to add a GET variable to your url (something like '/admin/blog/linkentry/add/?return_to_main=True') and then check for it in your modified change_view, add_view, and delete_view methods with a request.GET.get('return_to_main', False). I've even used this between objects of different model types to create a 'dashboard' page that allows you to view, and alter the relationships between an object of one type with objects of another type. All that's necessary in a case like that is to pass the id of the object in your GET variable and take that into account when creating your uri. An added benefit of that it makes it easy to auto-fill the ForeignKey field when creating a related object. In such a case you'll also need to keep that GET variable in the URLs down the line in order to maintain compatilibility with the 'Save and add another' and 'Save and continue editing' features. But that's still a simple modification:
+
+<code class="python">class EntryAdmin(admin.ModelAdmin):
+    def change_view(self, request, object_id, extra_context=None):
+        result = super(EntryAdminAdmin, self).change_view(request, object_id, extra_context)
+
+        other_id = request.GET.get("other_id", None)
+        if not request.POST.has_key('_addanother') and not request.POST.has_key('_continue'):
+            if other_id:
+                result['Location'] = iri_to_uri("/admin/dashboard/%s/") % other_id
+                return result
+        elif request.POST.has_key('_continue'):
+            if other_id:
+                result['Location'] = iri_to_uri("?other_id=%s" % other_id)
+                return result
+        elif request.POST.has_key('_addanother'):
+            if other_id:
+                result['Location'] = iri_to_uri("%s?other_id=%s" % (result['Location'], other_id))
+                return result
+        return result</code>
+
+But more on that sort of thing in other posts.
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=django&sa=Search#gsc.tab=0&gsc.q=django&gsc.page=1" rel="tag">django</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=work&sa=Search#gsc.tab=0&gsc.q=work&gsc.page=1" rel="tag">work</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=admin&sa=Search#gsc.tab=0&gsc.q=admin&gsc.page=1" rel="tag">admin</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=web&sa=Search#gsc.tab=0&gsc.q=web&gsc.page=1" rel="tag">web</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=programming&sa=Search#gsc.tab=0&gsc.q=programming&gsc.page=1" rel="tag">programming</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=python&sa=Search#gsc.tab=0&gsc.q=python&gsc.page=1" rel="tag">python</a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">Replacing files in a Django ImageField or FieldField</a>
+      <br />
+      <small>Sep 24, 2008</small>
+    </h1>
+    <a href="http://www.djangoproject.com">Django</a> provides a lot of really useful tools to simplify the development process and let you focus only on the important bits. The <a href="http://docs.djangoproject.com/en/dev/ref/models/fields/#filefield">FileField</a> and <a href="http://docs.djangoproject.com/en/dev/ref/models/fields/#imagefield">ImageField</a> (a subclass of FileField) are good examples of that letting you simply tell Django that your <a href="http://docs.djangoproject.com/en/dev/topics/db/models/">model</a> will have a file or image and letting it take care of the issues of uploading, storing, and all that. In the past, that's really been enough. It will even automatically delete the file/image when you delete its parent model object. One thing it doesn't do, however (and this has been the topic of <a href="http://code.djangoproject.com/ticket/2983">much debate</a>), is delete a previously uploaded file/image when you upload a new one for the same model. What I mean by this is if you have a model with a FileField defined and use it to upload some file associated with an object. If you then later decide that you want a different file associated with that object and upload it, it doesn't delete the original file and instead leaves it in place and only changes the path stored in the database to point to the new file. Depending on the nature and traffic your website gets, this can lead to massive amounts of storage being wasted on orphaned files (assuming you don't want to keep those old files, of course). I toyed with a couple different approaches to this, including the possibility of subclassing the FileField to try and add that functionalty directly to the field. While this would probably work, I instead opted for a less generalized method: overriding the save() method of the model to take care of this:
+
+<code class="python">
+def save(self, force_insert=False, force_update=False):
+    try:
+        old_obj = ModelName.objects.get(pk=self.pk)
+        if old_obj.image.path != self.image.path:
+                path = old_obj.image.path
+                default_storage.delete(path)
+    except:
+        pass
+    super(ModelName, self).save(force_insert, force_update)</code>
+
+This work perfectly, though it has the disadvantage of being specific to a particular model, which violates the <a href="http://en.wikipedia.org/wiki/DRY">DRY</a> principle (assuming you're going to use it on more than one model). Fortunately there's a simple way to solve this problem too: subclassing models.Model and then instead of having all your models subclass models.Model directly, have them subclass your own version of it instead. In that case you'll probably want to have it work generically on all ImageFields and/or FileFields rather than having to name them all specifically. This isn't too hard, and you can build up a list of all the ImageFields for a particular model like this (taken from the <a href="http://code.google.com/p/sorl-thumbnail/">sorl-thumnail</a> project):
+
+<code class="python">
+for field in model._meta.fields:
+    if isinstance(field, models.ImageField):
+        if field.upload_to.find("%") == -1:
+            paths = paths.union((field.upload_to,))
+</code>
+
+[Edit: There was a bug in my code that I've corrected. Details are below in the comment by Comete.]
+[Edit2: Fixed another problem in the code with variable names. Thanks, again Comete!]
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=django&sa=Search#gsc.tab=0&gsc.q=django&gsc.page=1" rel="tag">django</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=python&sa=Search#gsc.tab=0&gsc.q=python&gsc.page=1" rel="tag">python</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=work&sa=Search#gsc.tab=0&gsc.q=work&gsc.page=1" rel="tag">work</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=development&sa=Search#gsc.tab=0&gsc.q=development&gsc.page=1" rel="tag">development</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=programming&sa=Search#gsc.tab=0&gsc.q=programming&gsc.page=1" rel="tag">programming</a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

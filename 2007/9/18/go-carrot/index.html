@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">Go carrot</a>
+      <br />
+      <small>Sep 18, 2007</small>
+    </h1>
+    This is, oddly enough, another iPhone post. I know I said I wouldn't really be commenting on it any more, but this is a post that will be useful to other people and isn't relevent only to iPhone owners. Really, this has more to do with email than iPhones.
+
+The story starts out, however, with my iPhone. One annoyance of the iPhone is that it doesn't have any spam filtering capabilities for your email. Whatever shows up in your inbox shows up on your iPhone. This isn't necessarily a problem for everyone, but it is for me because the nature of what I do requires that my email address be easy to find and easy to read. So I get a lot of spam. And I use a client-side spam filter to deal with it (specifically, the one built into Apple's Mail, but that's not so important). As a result, having my iPhone check my mail automatically didn't work so well. Every 15 minutes (the period I had it set to check email) it would ding to alert me that I had mail, only for me to find that it was, almost without exception, spam. So I needed a way to filter my email <em>before</em> it got to my iPhone. There are a couple way that could be done. The most obvious is probably to install something like SpamAssassin (a server-side spam filter) on my email server. But I didn't really want to do that. I've never really liked SpamAssassin, and maintaining it can be a chore.
+
+There is, however, a very reliable and very accurate server-side spam filter available that I actually already used. That would be the spam filtering offered by Google's Gmail. Applying that spam filtering to my regular email was actually very simple and in some ways increased my flexibility in terms of ways to deal with my email. What I did was this:
+
+<ol><li>On my email server, set my email addresses (josh@dydxtech.com, josh@joshourisman.com, and a couple others that I keep around for legacy support reasons) to forward to my Gmail accounts (one for personal, and one for business).</li><li>Create new, private email accounts on my email server. These are where all of my email is going to end up, but I'm not going to publish the address anywhere or tell them to anyone.</li><li>Set my Gmail accounts to forward to the appropriate private email accounts</li><li>Transfer my archived email from my old accounts to the new private ones</li></ol>
+
+Pretty simple, as long as you have a basic understanding of how email works. Basically email goes to my public email address, is forwarded to Gmail which filters out all the spam very reliably, and is then forwarded to my super-secret, private email account. All mail sent from that account has a from and reply-to address of my private account, so it's difficult (though not impossible) for people to determine the addresses of my private accounts thus cutting nearly to zero the amount of spam that I ever have to deal with. Gmail, of course, isn't perfect, but if some spam gets through all I have to do is log into my Gmail account and mark the offending message as spam there. Similarly if I'm not getting an important email I can log into my Gmail account and check the spam folder there and mark it as not spam if necessary.
+
+So what does all this have to do with carrots? Well, that comes in at the last step: transferring my archived email from my old accounts to my new accounts. This turned out to be the most difficult step, although it didn't have to be. It sounds easy enough: set up both the old account and the new account in your mail client, drag the messages/folders from the old account to the new account. Done. It actually worked exactly like this for my work account. But I've only had that account for a little over a year, so there isn't all that much email in there. My personal account, on the other hand, contains my archived email going all the way back to September 6, 2000 when my Carleton College email account became active (it was from my dad). Sadly all my email from high school and earlier were lost that same day due to me being naÃ¯ve enough to think that now that I was in college I could trust the IT people to know what they were talking about. They didn't, and I lost several years worth of email because of it. Come to think of it, that's probably why I do what I do all these years later. I also, in the process, found this gem sent on December 30, 2000, it was the very last email I received in the year 2000:
+
+<pre>Â Â Â Â Â Â Â Â Â Â Â Â Â \ Â Â Â Â /
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â \\ Â Â //
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â )\-/(
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â /o o\
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â ( =T= )
+Â Â Â Â Â Â Â Â Â Â Â Â Â Â /`---'\
+Â Â Â Â Â Â Â Â Â ____/ /___\ \
+Â Â Â Â \ Â Â / Â Â ''' Â Â Â Â ```~~"--.,_
+Â `-._\ / Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â `~~"--.,_
+------>| Â Â Â Â Go Carrot! Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â `~~"--.,_
+Â _.-'/ \ Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â ___,,,---""~~``'
+Â Â Â Â / Â Â \____,,,,....----""""~~~~````</pre>
+
+So anyway, the problem I was getting to. Basically, when trying to copy all that email over (nearly 6000 messages) it wasn't working. I'd try and copy it only to find that I was ending up with some tiny subset (usually less than 500) emails in my new account. So I tried splitting it up into smaller quantities. Same problem. I spent a good chunk of yesterday trying to fix this. This morning I woke up to find only about 200 messages in my account. So I finally put a little extra thought into it and realized what I was doing wrong: I had SSL turned on. All IMAP traffic between my computer and my server was being encrypted. That meant it was going slower that it normally would be. That meant very long copy times, the potential for time-outs, and the potential that my client would decide to synchronize it's folders in the middle of a copy. Seemed like a likely culprit. So I turned off SSL and tried again. The first thing that I noticed was that the transfers were suddently blazingly fast. I had known there would be a speed different, but the actual slowdown you get in email tranfser when using SSL is vastly more significant that I had expected it would. The result? Everything copied over perfectly in one try.
+
+So really there are two lessons in all of this: 1) a good way to filter the spam out of your email before it gets to your iPhone (or other email device that lacks it's own spam filter, or if you just want to filter your spam without having to train filters on multiple computers) is to route your email through Gmail, and 2) if you're going to be moving large amounts of email messages around, especially between accounts, you might want to consider turning of SSL for the duration (keep in mind, however, that this exposes your email to the internet; it would not be impossible, or even all that difficult for someone to snatch the text of those emails if they wanted to).
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=iphone&sa=Search#gsc.tab=0&gsc.q=iphone&gsc.page=1" rel="tag">iphone</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=technology&sa=Search#gsc.tab=0&gsc.q=technology&gsc.page=1" rel="tag">technology</a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

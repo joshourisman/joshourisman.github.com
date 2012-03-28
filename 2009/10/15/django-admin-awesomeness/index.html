@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">Django admin awesomeness</a>
+      <br />
+      <small>Oct 15, 2009</small>
+    </h1>
+    Yes, I realize that this is now my third post not related to DVCSes since I said my next post would be about DVCSes. So sue me.
+
+I recently encountered an interesting requirement for the <a href="http://www.djangoproject.com/">Django</a> <a href="http://docs.djangoproject.com/en/dev/ref/contrib/admin/#ref-contrib-admin">admin</a>: we wanted people to normally only see (and be able to edit) objects that either they created themselves, or that the creator had assigned them to. Fortunately this is insanely easy in Django 1.1, all you have to do is override the queryset() method of the appropriate ModelAdmin like so:
+
+<script src="http://gist.github.com/211008.js"></script>
+
+This snippet very easily allows you to apply essentially any filter you want to the QuerySet that gets passed on to the change_list and allows you to provide an exception for super users (always a good thing!). That part was really easy and something I've done before (even in 1.0.x where the functionality is there, just not exposed). Where it got trickier was where the client also wanted the functionality to be able to view <em>all</em> the objects regardless of who created them, but still only have editing capabilities for their own objects (and only see the information available on the change_list for others).
+
+This part was much harder, but fortunately also made very possible by the updates to ModelAdmin in the 1.1.x branch. The first thing I wanted to do was just provide a new URL and view integrated seamlessly into the admin. Again this was very simple with the new admin, and required only overriding the get_urls() method on the ModelAdmin:
+
+<script src="http://gist.github.com/211020.js"></script>
+
+Getting that all_objects view to return something essentially identical to the normal change_list, but with a completely different filter on the queryset, and some different display options was the real problem I had to address. Wrapping my head around the problem took some time, but fortunately even this was pretty simple once I really started to get into the flexibility of the ModelAdmin class.
+
+Broken down to it's most basic level, what I wanted to do was return the change_list view from a Model Admin. This in itself is very simple to do, and requires very little code:
+
+<script src="http://gist.github.com/211023.js"></script>
+
+Once I figure that out it was pretty obvious that what I needed to do was subclass my ModelAdmin and just re-overide the relevant functions. Turns out this is really easy to do, and gives you a whole lot of flexibility. So I created a special AllItemsAdmin subclass of ThisAdmin, and overrode <em>that</em> queryset() method to return all the objects. I then had to figure out a way to get it to only display but not link to edit pages for objects that the current user doesn't own. Since I needed them to be in the queryset, this was a little trickier.
+
+Anyone who's been working with the Django admin should know about the <a href="http://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display">list_display</a> option on the ModelAdmin. What you might not know (I didn't until recently) is that no only can the list_display list contain field names and properties from the model (Actually, if you didn't know that you can provide <a href="http://docs.djangoproject.com/en/dev/topics/db/models/#id4">callable properties from your model</a>, you should check that out. It lets you do some very useful things.), you can also provide <em>callables from within your model admin</em>. So you could set your list_display to something like ['title', 'my_function'] where my_function is a method on your model admin with a definition along the lines of my_function(self, object) that can perform operations on the Django object for that row and return whatever value you want.  The normal options for model properties (such as allow_tags and short_description) work here as well. So what I was able to do with this was create a custom column for my change_list that looked at the specific object, checked the ownership properties as above, and then returned either just the name of the object, or the name of the object as a link to the regular edit page for that object. By setting list_display_links to (None,) I was able to prevent any of the fields from automatically be turned into links. Of course doing this required that method to have access to the request which it usually wouldn't, but since I was already working with a hacked up subclass of my ModelAdmin I was able to just override the __init__() to take the request object and pass that in when I instantiated it. What I ended up with was this really awesome view (if I do say so myself):
+
+<script src="http://gist.github.com/211037.js"></script>
+
+As you can see, this is also using another new feature in the 1.1.x admin: reversing of admin URLs. After this all I needed was a few simple changes to the change_list.html template for this model let me add a 'View all' link to go to this new view, and then the 'all' context variable being passed in as extra context simply tells it to provide a link back to the standard view otherwise.
+
+The result of all this was a seamless integration of my custom 'view, but don't edit all' view into the Django admin.
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=django&sa=Search#gsc.tab=0&gsc.q=django&gsc.page=1" rel="tag">django</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=admin&sa=Search#gsc.tab=0&gsc.q=admin&gsc.page=1" rel="tag">admin</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=1.1&sa=Search#gsc.tab=0&gsc.q=1.1&gsc.page=1" rel="tag">1.1</a></span>
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=modeladmin&sa=Search#gsc.tab=0&gsc.q=modeladmin&gsc.page=1" rel="tag">modeladmin</a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

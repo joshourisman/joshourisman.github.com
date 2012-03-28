@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>On the Other Hand</title>
+    <meta name="description" content="A blog">
+    <meta name="author" content="Josh Ourisman">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+    /* Override some defaults */
+    html, body {
+	background-color: #eee;
+    }
+    body {
+	padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+    }
+    .container > footer p {
+	text-align: center; /* center align it with the container */
+    }
+    .container {
+	width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+    }
+
+    /* The white background content wrapper */
+    .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+	-webkit-border-radius: 0 0 6px 6px;
+	-moz-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* Page header tweaks */
+    .page-header {
+	background-color: #f5f5f5;
+	padding: 20px 20px 10px;
+	margin: -20px -20px 20px;
+    }
+
+    /* fix label link color */
+    .label a {
+        color: #FFF;
+    }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29117113-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+	<div class="container">
+	  <a class="brand" href="/">joshourisman.com</a>
+	  <ul class="nav">
+ -->	  </ul>
+
+
+	  <form action="http://www.google.com/cse" class="pull-right">
+	    <div>
+	      <input type="hidden" name="cx" value="014887151929574737578:covn-9kpxsk" />
+	      <input type="hidden" name="ie" value="UTF-8" />
+	      <input type="text" name="q" size="31" />
+	      <input type="submit" name="sa" value="Search" />
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+	<div class="page-header">
+    <span class="pull-right">
+    <a href="http://feeds.feedburner.com/joshourisman/lRQx"><img src="http://feeds.feedburner.com/~fc/joshourisman/lRQx?bg=99CCFF&amp;fg=444444&amp;anim=0" alt="" /></a>
+    </span>
+    <h1>On the Other Hand, <small>a blog by Josh Ourisman.</small></h1>
+	</div>
+	<div class="row">
+	  <div class="span14">
+	    
+<div class="row">
+  <div class="span14">
+    <h1>
+      <a href="" rel="bookmark">PayPal Developer Sandbox</a>
+      <br />
+      <small>Apr 26, 2007</small>
+    </h1>
+    So a project I'm currently working on involves using the PayPal API to handle credit card transactions (two projects actually, but the PayPal part will be more or less interchangeable between them). I've never actually used PayPal's Merchant Services (or any other e-commerce platform, for that matter) before, so I'm having to teach myself how to use it as I go.
+
+Fortunately, PayPal offers a developer 'sandbox' where you can set up what is essentially a dummy account to test your website without actually incurring any charges or having to move money around. This is a brilliant idea, and I'm glad they thought of it. However, it's really just not implemented very well. Setting up the dummy account within the sandbox is ridiculously hard to do and not at all intuitive. For the most part, it's like setting up a regular PayPal account, with a few minor differences. The problem is they don't document those differences at all making it very hard to figure out what you're doing. There's a help link on the developer page, but it doesn't actually work and only takes you back to the main developer page. So in order to figure out what you're doing you have to go to their developers forum and search for the answer there. When you do that you discover that hundreds of other people have had the exact same problem and have also resorted to using the forum. Reading through the threads they created you see the same thing over and over. The developer is confused and asks how to do something, and a person from PayPal responds with a very brief answer that barely suffices to help you move on to the next step.
+
+As a specific example: when signing up for a PayPal account, one of the pieces of information you need to give them is your Social Security Number. For the sandbox account, it doesn't work if you leave it blank, it also doesn't work if you use a random string of 9 digits, and it also doesn't work if you use a real SSN. So I searched the forums to find an answer, and the only reply that PayPal had given when people asked about this was that you had to use a 9 digit number where the first three numbers were 1s (so, 111xxxxxx). They provided no detail beyond that. So I tried the number 111111111. Didn't work, because someone had already used it. PayPal, of course, never deigned to mention that you had to pick a <em>unique</em> 9 digit number that started with three 1s. So I tried 111999999. Also no good. Nor was 111222222, nor 111111112, nor pretty much any other pseudo-random string I could come up with. Eventually I had to settle with taking my real SSN and changing the first three digits to 111. This worked, but isn't a very good solution. Since the first three digits of your Social Security Number indicate what office your number was issued in, it's not that difficult to figure out the first three numbers of someone's based on where they were born (or at least to narrow it down to the point where a brute force approach becomes reasonable). So not only was setting up the account inconvenient, it was a bit iffy in terms of security as well. I understand that they didn't want to have to change their code a whole lot, but how hard would it have been to just set up the SSN field to auto-fill with a valid string of numbers, or to allow multiple people to use the same string? At the very least, they could have put a little note there explaining the constraints on the number you have to enter instead of barely pointing you in the right directly, if you ask, and then letting you figure the rest out yourself.
+
+Fortunately, I eventually figured it out. But then ran into another obstacle, one which is still in the process of being resolved: you have to <em>verify</em> your dummy sandbox account before you can take advantage of the PayPal Merchant Services. If you don't have a PayPal account, verification involves them making two small deposits to a bank account that you control so that you can then tell them the amount of the deposits proving that it's your account. First of all, it's completely ridiculous to require this of a sandbox account where no real money will be dealt with. Secondly, they again take no steps to simplify this process. They don't even allow you to use a fake account, because you still have to go through the whole verification process. So you have to wait several days before the deposits go through and then show up on your bank statement (assuming you have online banking, otherwise you have to wait up to a month for your statement to be mailed to you). Several days, just to set up a test account that uses a fake SSN and will never see a single real dollar. Does that make sense at all? I sure don't think so.
+
+PayPal obviously handles a lot of money. And they make a lot of money through that. I'm sure a pretty decent portion of that income comes from people who use PayPal's Merchant Services on their own webpage. So you'd think they'd want to make the process of setting up and testing those services as quick and painless as possible to encourage more people to use them. You'd think, anyway.
+    <div class="entry_meta">
+      <a href="#disqus_thread">View Comments</a>
+      
+      
+      Tags:
+      
+      <span class="label"><a href="http://www.google.com/cse?cx=014887151929574737578:covn-9kpxsk&ie=UTF-8&q=&sa=Search#gsc.tab=0&gsc.q=&gsc.page=1" rel="tag"></a></span>
+      
+      
+    </div>
+  </div>
+</div>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'otherhand'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+	  </div>
+	</div>
+      </div>
+
+      <footer>
+	<p>&copy; Josh Ourisman 2006-2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
